@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "src": "/post",
+      "dest": "/vercel/post.js"
+    },
+    {
+      "src": "/get",
+      "dest": "/vercel/get.js"
+    }
+  ]
+}
