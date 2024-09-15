@@ -93,15 +93,21 @@ function fetchMessages() {
             const messagesContainer = document.getElementById('messages');
             messagesContainer.innerHTML = ''; // 清空旧消息
 
-            data.forEach(msg => {
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message');
-                messageElement.innerHTML = `
-                    <div><strong>${msg.name}:</strong> ${msg.message}</div>
-                    <div class="timestamp">${new Date(msg.time + 8 * 60 * 60 * 1000).toLocaleString()}+8000</div>
-                `;
-                messagesContainer.appendChild(messageElement);
-            });
+            // 检查 data 是否为数组并且是否有内容
+            if (Array.isArray(data) && data.length > 0) {
+                data.forEach(msg => {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message');
+                    messageElement.innerHTML = `
+                        <div><strong>${msg.name}:</strong> ${msg.message}</div>
+                        <div class="timestamp">${new Date(msg.time + 8 * 60 * 60 * 1000).toLocaleString()}+8000</div>
+                    `;
+                    messagesContainer.appendChild(messageElement);
+                });
+            } else {
+                // 如果没有消息，显示一个占位符提示
+                messagesContainer.innerHTML = '<div class="no-messages">暂无消息</div>';
+            }
 
             // 自动滚动到底部
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
