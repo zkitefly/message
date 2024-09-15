@@ -2,6 +2,7 @@ let chatId = '';
 let chatName = '';
 let fetchInterval;
 let isPageVisible = true;
+let sendCooldown = false;
 
 // 页面加载时检查 URL 中的 id 参数
 window.onload = () => {
@@ -61,6 +62,12 @@ function handleVisibilityChange() {
 
 // 发送消息
 function sendMessage() {
+    // 检查冷却状态
+    if (sendCooldown) {
+        alert('发送冷却中，请稍候再试');
+        return;
+    }
+
     const messageInput = document.getElementById('message-input');
     const message = messageInput.value.trim();
 
@@ -85,6 +92,7 @@ function sendMessage() {
         if (response.ok) {
             messageInput.value = ''; // 清空输入框
             fetchMessages(); // 立即刷新消息列表
+            startCooldown(); // 开始冷却
         } else {
             return response.text().then(text => { throw new Error(text); });  // 抛出服务器返回的错误信息
         }
@@ -93,6 +101,19 @@ function sendMessage() {
         console.error('发送消息时出错:', error);
         alert(`发送消息失败: ${error.message}`);
     });
+}
+
+// 开始冷却
+function startCooldown() {
+    const sendButton = document.getElementById('send-button');
+    sendCooldown = true;
+    sendButton.disabled = true;
+
+    // 设置5秒冷却
+    setTimeout(() => {
+        sendCooldown = false;
+        sendButton.disabled = false;
+    }, 5000); // 5秒后解除冷却
 }
 
 // 获取聊天记录
