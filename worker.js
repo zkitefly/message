@@ -49,8 +49,17 @@ async function handlePost(request) {
   try {
     const { id, name, message } = await request.json();
 
+    // 检查参数是否缺失，或是否超出长度限制
     if (!id || !name || !message) {
       return new Response("参数缺失或无效", { status: 400 });
+    }
+
+    if (id.length > 50) {
+      return new Response("id 长度超过 50 个字符", { status: 400 });
+    }
+
+    if (message.length > 5000) {
+      return new Response("message 长度超过 5000 个字符", { status: 400 });
     }
 
     const time = Date.now();
