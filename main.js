@@ -120,6 +120,10 @@ function startCooldown() {
 
 // 获取聊天记录
 function fetchMessages() {
+    if (!isLoggedIn) {
+        return;
+    }
+
     if (!isLoggedIn || !chatId) {
         alert('聊天 ID 不存在或未登录，请重新登录');
         return;
