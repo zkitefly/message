@@ -36,7 +36,7 @@ function loginToChat() {
 
     // 开始每 15 秒获取聊天记录
     fetchMessages();
-    // fetchInterval = setInterval(fetchMessages, 15000);
+    fetchInterval = setInterval(fetchMessages, 15000);
 }
 
 // 发送消息
