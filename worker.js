@@ -72,7 +72,15 @@ async function handlePost(request) {
       time,
     };
 
-    // 存储数据，使用 id 和时间戳生成的唯一键
+    // 获取现有的索引并更新它
+    let index = await MESSAGE.get(`${id}-index`);
+    index = index ? JSON.parse(index) : [];
+
+    // 将新键添加到索引中
+    index.push(key);
+    await MESSAGE.put(`${id}-index`, JSON.stringify(index));
+
+    // 存储新消息
     await MESSAGE.put(key, JSON.stringify(data));
 
     return new Response("消息发送成功", { status: 200 });
@@ -89,10 +97,10 @@ async function handleGet(url) {
     return new Response(JSON.stringify({}), { status: 200 });
   }
 
-  // 获取与该 id 相关的所有键
-  const keys = await MESSAGE.list({ prefix: id });
+  // 从索引中获取与该 id 相关的所有键
+  const index = await MESSAGE.get(`${id}-index`);
 
-  if (!keys || keys.keys.length === 0) {
+  if (!index) {
     return new Response(JSON.stringify({ message: "未找到对应的频道" }), {
       headers: { "Content-Type": "application/json" },
       status: 200,
@@ -100,9 +108,10 @@ async function handleGet(url) {
   }
 
   // 获取所有相关数据
+  const keys = JSON.parse(index);
   const messages = [];
-  for (const key of keys.keys) {
-    const data = await MESSAGE.get(key.name);
+  for (const key of keys) {
+    const data = await MESSAGE.get(key);
     if (data) {
       messages.push(JSON.parse(data));
     }
