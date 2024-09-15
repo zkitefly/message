@@ -3,7 +3,6 @@ let chatName = '';
 let fetchInterval;
 let isPageVisible = true;
 let sendCooldown = false;
-let isLoggedIn = false;
 
 // 页面加载时检查 URL 中的 id 参数
 window.onload = () => {
@@ -21,7 +20,38 @@ window.onload = () => {
 
     // 监听页面的可见性变化
     document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // 绑定回车键操作
+    bindEnterKey();
 };
+
+// 绑定回车键操作
+function bindEnterKey() {
+    const idInput = document.getElementById('chat-id');
+    const nameInput = document.getElementById('chat-name');
+    const messageInput = document.getElementById('message-input');
+
+    // 在频道 ID 或用户名输入框按下回车时，登录
+    idInput.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+            loginToChat();
+        }
+    });
+
+    nameInput.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+            loginToChat();
+        }
+    });
+
+    // 在消息输入框按下回车时，发送消息
+    messageInput.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 防止回车换行
+            sendMessage();
+        }
+    });
+}
 
 // 登录并初始化聊天
 function loginToChat() {
@@ -39,8 +69,6 @@ function loginToChat() {
     // 隐藏登录界面，显示聊天界面
     document.getElementById('login').style.display = 'none';
     document.getElementById('chat').style.display = 'block';
-
-    isLoggedIn = true; // 用户已登录
 
     // 开始每 30 秒获取聊天记录
     fetchMessages();
@@ -120,12 +148,7 @@ function startCooldown() {
 
 // 获取聊天记录
 function fetchMessages() {
-    if (!isLoggedIn) {
-        return;
-    }
-
-    if (!isLoggedIn || !chatId) {
-        alert('聊天 ID 不存在或未登录，请重新登录');
+    if (!chatId) {
         return;
     }
 
