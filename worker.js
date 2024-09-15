@@ -63,25 +63,21 @@ async function handlePost(request) {
     }
 
     const time = Date.now();
-    const key = `${id}-${time}`; // 生成唯一键
-
-    const data = {
-      id,
+    const newMessage = {
       name,
       message,
       time,
     };
 
-    // 获取现有的索引并更新它
-    let index = await MESSAGE.get(`${id}-index`);
-    index = index ? JSON.parse(index) : [];
+    // 获取当前 id 下的消息列表
+    let messages = await MESSAGE.get(id);
+    messages = messages ? JSON.parse(messages) : [];
 
-    // 将新键添加到索引中
-    index.push(key);
-    await MESSAGE.put(`${id}-index`, JSON.stringify(index));
+    // 将新消息追加到消息列表
+    messages.push(newMessage);
 
-    // 存储新消息
-    await MESSAGE.put(key, JSON.stringify(data));
+    // 将消息列表存回 KV
+    await MESSAGE.put(id, JSON.stringify(messages));
 
     return new Response("消息发送成功", { status: 200 });
   } catch (error) {
@@ -97,27 +93,17 @@ async function handleGet(url) {
     return new Response(JSON.stringify({}), { status: 200 });
   }
 
-  // 从索引中获取与该 id 相关的所有键
-  const index = await MESSAGE.get(`${id}-index`);
+  // 获取当前 id 下的所有消息
+  const messages = await MESSAGE.get(id);
 
-  if (!index) {
+  if (!messages) {
     return new Response(JSON.stringify({ message: "未找到对应的频道" }), {
       headers: { "Content-Type": "application/json" },
       status: 200,
     });
   }
 
-  // 获取所有相关数据
-  const keys = JSON.parse(index);
-  const messages = [];
-  for (const key of keys) {
-    const data = await MESSAGE.get(key);
-    if (data) {
-      messages.push(JSON.parse(data));
-    }
-  }
-
-  return new Response(JSON.stringify(messages), {
+  return new Response(messages, {
     headers: { "Content-Type": "application/json" },
     status: 200,
   });
