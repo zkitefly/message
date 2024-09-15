@@ -61,6 +61,10 @@ async function handlePost(request) {
       return new Response("id 长度超过 50 个字符", { status: 400 });
     }
 
+    if (name.length > 50) {
+      return new Response("name 长度超过 50 个字符", { status: 400 });
+    }
+
     if (message.length > 5000) {
       return new Response("message 长度超过 5000 个字符", { status: 400 });
     }
