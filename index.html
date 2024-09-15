@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="chat-container">
+        <div id="login">
+            <h2>请输入聊天信息</h2>
+            <label for="chat-id">频道 ID:</label>
+            <input type="text" id="chat-id" placeholder="请输入频道 ID">
+            <br>
+            <label for="chat-name">用户名:</label>
+            <input type="text" id="chat-name" placeholder="请输入用户名">
+            <br>
+            <button id="login-button">加入聊天</button>
+        </div>
+        
+        <div id="chat" style="display: none;">
+            <h2>聊天室</h2>
+            <button id="fetch-now">刷新</button>
+            <div id="messages"></div>
+            <input type="text" id="message-input">
+            <button id="send-button">发送</button>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>
