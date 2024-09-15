@@ -1,3 +1,6 @@
+// 用于缓存 GET 请求的数据
+const cache = new Map();
+
 addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
 });
@@ -79,6 +82,9 @@ async function handlePost(request) {
     // 将消息列表存回 KV
     await MESSAGE.put(id, JSON.stringify(messages));
 
+    // 清除对应 id 的缓存（因为数据有更新）
+    cache.delete(id);
+
     return new Response("消息发送成功", { status: 200 });
   } catch (error) {
     return new Response("处理请求时出错", { status: 500 });
@@ -93,7 +99,15 @@ async function handleGet(url) {
     return new Response(JSON.stringify({}), { status: 200 });
   }
 
-  // 获取当前 id 下的所有消息
+  // 检查缓存中是否有数据
+  if (cache.has(id)) {
+    return new Response(cache.get(id), {
+      headers: { "Content-Type": "application/json" },
+      status: 200,
+    });
+  }
+
+  // 如果缓存中没有数据，查询 KV
   const messages = await MESSAGE.get(id);
 
   if (!messages) {
@@ -102,6 +116,9 @@ async function handleGet(url) {
       status: 200,
     });
   }
+
+  // 将数据存入缓存
+  cache.set(id, messages);
 
   return new Response(messages, {
     headers: { "Content-Type": "application/json" },
