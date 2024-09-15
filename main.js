@@ -74,9 +74,9 @@ function loginToChat() {
     document.getElementById('login').style.display = 'none';
     document.getElementById('chat').style.display = 'block';
 
-    // 开始每 30 秒获取聊天记录
+    // 开始每 15 秒获取聊天记录
     fetchMessages();
-    fetchInterval = setInterval(fetchMessages, 30000); // 默认 30 秒
+    fetchInterval = setInterval(fetchMessages, 15000); // 默认 15 秒
 }
 
 // 处理页面可见性变化
@@ -87,10 +87,10 @@ function handleVisibilityChange() {
         fetchInterval = setInterval(fetchMessages, 60000); // 1 分钟
         isPageVisible = false;
     } else {
-        // 当页面可见时，立即刷新并恢复至 30 秒
+        // 当页面可见时，立即刷新并恢复至 15 秒
         clearInterval(fetchInterval);
         fetchMessages(); // 立即获取一次消息
-        fetchInterval = setInterval(fetchMessages, 30000); // 恢复 30 秒
+        fetchInterval = setInterval(fetchMessages, 15000); // 恢复 15 秒
         isPageVisible = true;
     }
 }
