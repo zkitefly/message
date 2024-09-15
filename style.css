@@ -58,7 +58,7 @@ body {
     border-radius: 5px;
 }
 
-#send-button, #fetch-now {
+#send-button, #login-button {
     padding: 10px;
     margin: 10px;
     background-color: #4CAF50;
@@ -68,6 +68,6 @@ body {
     cursor: pointer;
 }
 
-#send-button:hover, #fetch-now:hover {
+#send-button:hover, #login-button:hover {
     background-color: #45a049;
 }

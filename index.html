@@ -21,11 +21,14 @@
         
         <div id="chat" style="display: none;">
             <h2>聊天室</h2>
+            <div id="user-info">
+                <span id="display-chat-id"></span> - <span id="display-chat-name"></span>
+                <button id="fetch-now" title="半分钟自动刷新一次">刷新</button>
+            </div>
             <div id="messages"></div>
-            <input type="text" id="message-input" placeholder="发送需要至多一分钟">
-            <button id="send-button">发送</button>
-            <button id="fetch-now">刷新</button>
-        </div>
+            <input type="text" id="message-input" placeholder="输入消息">
+            <button id="send-button" title="发送需等待至多半分钟">发送</button>
+        </div>        
     </div>
     
     <script src="main.js"></script>

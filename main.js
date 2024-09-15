@@ -66,6 +66,10 @@ function loginToChat() {
     chatId = idInput.value;
     chatName = nameInput.value;
 
+    // 显示频道 ID 和用户名
+    document.getElementById('display-chat-id').textContent = `频道 ID: ${chatId}`;
+    document.getElementById('display-chat-name').textContent = `用户名: ${chatName}`;
+
     // 隐藏登录界面，显示聊天界面
     document.getElementById('login').style.display = 'none';
     document.getElementById('chat').style.display = 'block';
@@ -122,6 +126,7 @@ function sendMessage() {
     .then(response => {
         if (response.ok) {
             messageInput.value = ''; // 清空输入框
+            fetchMessages(); // 刷新消息
             startCooldown(); // 开始冷却
         } else {
             return response.text().then(text => { throw new Error(text); });  // 抛出服务器返回的错误信息
