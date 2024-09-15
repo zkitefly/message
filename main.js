@@ -91,7 +91,6 @@ function sendMessage() {
     .then(response => {
         if (response.ok) {
             messageInput.value = ''; // 清空输入框
-            fetchMessages(); // 立即刷新消息列表
             startCooldown(); // 开始冷却
         } else {
             return response.text().then(text => { throw new Error(text); });  // 抛出服务器返回的错误信息
