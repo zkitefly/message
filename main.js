@@ -142,7 +142,7 @@ function loginToChat() {
     // 动态设置 "聊天室" 链接
     const chatLink = document.getElementById('chat-link');
     const currentUrl = window.location.origin + window.location.pathname; // 当前页面链接（不包含参数）
-    chatLink.href = `https://tool.lu/qrcode/basic.html?text=${encodeURIComponent(currentUrl + '?id=' + chatId)}`;
+    chatLink.href = `https://api.cl2wm.cn/api/qrcode/code?text=${encodeURIComponent(currentUrl + '?id=' + chatId)}`;
 
     // 隐藏登录界面，显示聊天界面
     document.getElementById('login').style.display = 'none';
