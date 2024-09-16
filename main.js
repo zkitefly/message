@@ -84,7 +84,7 @@ function handleVisibilityChange() {
     if (document.hidden) {
         // 当页面不可见时，调整为每 1 分钟获取一次
         clearInterval(fetchInterval);
-        fetchInterval = setInterval(fetchMessages, 60000); // 1 分钟
+        fetchInterval = setInterval(fetchMessages, 600000); // 10 分钟
         isPageVisible = false;
     } else {
         // 当页面可见时，立即刷新并恢复至 15 秒
