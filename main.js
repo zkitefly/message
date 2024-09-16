@@ -8,10 +8,16 @@ let sendCooldown = false;
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const idFromUrl = urlParams.get('id');
+    const nameFromUrl = urlParams.get('name');
 
     if (idFromUrl) {
         document.getElementById('chat-id').value = idFromUrl;
         document.getElementById('chat-id').disabled = true;
+    }
+
+    if (idFromUrl) {
+        document.getElementById('chat-name').value = nameFromUrl;
+        document.getElementById('chat-name').disabled = true;
     }
 
     document.getElementById('login-button').addEventListener('click', loginToChat);
