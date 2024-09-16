@@ -5,10 +5,17 @@ body {
 }
 
 .name {
+    -webkit-user-select: none;
     user-select: none;
 }
 
+.message {
+    -webkit-user-select: all;
+    user-select: all;
+}
+
 .timestamp {
+    -webkit-user-select: none;
     user-select: none;
 }
 
