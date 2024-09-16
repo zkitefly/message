@@ -8,7 +8,7 @@ addEventListener("fetch", (event) => {
 async function handleRequest(request) {
   const url = new URL(request.url);
   const path = url.pathname;
-  
+
   // 处理 OPTIONS 预检请求
   if (request.method === "OPTIONS") {
     return handleOptions();

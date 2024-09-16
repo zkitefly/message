@@ -17,6 +17,7 @@ window.onload = () => {
     document.getElementById('login-button').addEventListener('click', loginToChat);
     document.getElementById('send-button').addEventListener('click', sendMessage);
     document.getElementById('fetch-now').addEventListener('click', fetchMessages);
+    document.getElementById('upload-button').addEventListener('click', uploadFile);
 
     // 监听页面的可见性变化
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -24,6 +25,42 @@ window.onload = () => {
     // 绑定回车键操作
     bindEnterKey();
 };
+
+function uploadFile() {
+    const fileInput = document.getElementById('file-input');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert('请选择一个文件上传');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('https://file.io', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text); });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                const messageInput = document.getElementById('message-input');
+                messageInput.value = data.link;
+            } else {
+                throw new Error(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('文件上传时出错:', error);
+            alert(`文件上传失败: ${error.message}`);
+        });
+}
 
 // 绑定回车键操作
 function bindEnterKey() {
