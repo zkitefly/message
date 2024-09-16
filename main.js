@@ -38,14 +38,23 @@ window.onload = () => {
 };
 
 function pasteFromClipboard() {
-    navigator.clipboard.readText()
-    .then(text => {
-        const messageInput = document.getElementById('message-input');
-        messageInput.value = text;
-    })
-    .catch(error => {
-        console.error('粘贴内容时出错:', error);
-        alert('无法从剪贴板粘贴内容');
+    navigator.permissions.query({ name: 'clipboard-read' }).then(permissionStatus => {
+        if (permissionStatus.state === 'granted' || permissionStatus.state === 'prompt') {
+            navigator.clipboard.readText()
+                .then(text => {
+                    const messageInput = document.getElementById('message-input');
+                    messageInput.value = text;
+                })
+                .catch(error => {
+                    console.error('粘贴内容时出错:', error);
+                    alert('无法从剪贴板粘贴内容');
+                });
+        } else {
+            alert('请在浏览器设置中允许访问剪贴板');
+        }
+    }).catch(error => {
+        console.error('检查剪贴板权限时出错:', error);
+        alert('无法检查剪贴板权限');
     });
 }
 
