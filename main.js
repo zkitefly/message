@@ -15,9 +15,13 @@ window.onload = () => {
         document.getElementById('chat-id').disabled = true;
     }
 
-    if (idFromUrl) {
+    if (nameFromUrl) {
         document.getElementById('chat-name').value = nameFromUrl;
         document.getElementById('chat-name').disabled = true;
+    }
+
+    if (nameFromUrl && idFromUrl) {
+        setInterval(loginToChat, 1000);
     }
 
     document.getElementById('login-button').addEventListener('click', loginToChat);
