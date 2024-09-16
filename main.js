@@ -257,7 +257,7 @@ function fetchMessages() {
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         })
         .catch(error => {
-            console.error('获取消息时出错:', error);
+            // console.error('获取消息时出错:', error);
             alert(`获取消息失败: ${error.message}`);
         });
 }
