@@ -8,12 +8,12 @@ let sendCooldown = false;
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const idFromUrl = urlParams.get('id');
-    
+
     if (idFromUrl) {
         document.getElementById('chat-id').value = idFromUrl;
         document.getElementById('chat-id').disabled = true;
     }
-    
+
     document.getElementById('login-button').addEventListener('click', loginToChat);
     document.getElementById('send-button').addEventListener('click', sendMessage);
     document.getElementById('fetch-now').addEventListener('click', fetchMessages);
@@ -123,19 +123,19 @@ function sendMessage() {
             message: message
         })
     })
-    .then(response => {
-        if (response.ok) {
-            messageInput.value = ''; // 清空输入框
-            fetchMessages(); // 刷新消息
-            startCooldown(); // 开始冷却
-        } else {
-            return response.text().then(text => { throw new Error(text); });  // 抛出服务器返回的错误信息
-        }
-    })
-    .catch(error => {
-        console.error('发送消息时出错:', error);
-        alert(`发送消息失败: ${error.message}`);
-    });
+        .then(response => {
+            if (response.ok) {
+                messageInput.value = ''; // 清空输入框
+                fetchMessages(); // 刷新消息
+                startCooldown(); // 开始冷却
+            } else {
+                return response.text().then(text => { throw new Error(text); });  // 抛出服务器返回的错误信息
+            }
+        })
+        .catch(error => {
+            console.error('发送消息时出错:', error);
+            alert(`发送消息失败: ${error.message}`);
+        });
 }
 
 // 开始冷却
@@ -174,7 +174,7 @@ function fetchMessages() {
                     const messageElement = document.createElement('div');
                     messageElement.classList.add('message');
                     messageElement.innerHTML = `
-                        <div><strong>${msg.name}:</strong> ${msg.message}</div>
+                        <div class="container"><strong class="name">${msg.name}: </strong><span class="message">${msg.message}</span></div>
                         <div class="timestamp">${formatTime(msg.time)}</div>
                     `;
                     messagesContainer.appendChild(messageElement);

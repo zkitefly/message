@@ -4,6 +4,22 @@ body {
     padding: 20px;
 }
 
+.name {
+    user-select: none;
+}
+
+.message {
+    user-select: text;
+}
+
+.timestamp {
+    user-select: none;
+}
+
+.container {
+    user-select: none;
+}
+
 #chat-container {
     max-width: 600px;
     margin: 0 auto;
@@ -58,7 +74,8 @@ body {
     border-radius: 5px;
 }
 
-#send-button, #login-button {
+#send-button,
+#login-button {
     padding: 10px;
     margin: 10px;
     background-color: #4CAF50;
@@ -68,6 +85,7 @@ body {
     cursor: pointer;
 }
 
-#send-button:hover, #login-button:hover {
+#send-button:hover,
+#login-button:hover {
     background-color: #45a049;
 }
