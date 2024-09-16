@@ -28,6 +28,7 @@ window.onload = () => {
     document.getElementById('send-button').addEventListener('click', sendMessage);
     document.getElementById('fetch-now').addEventListener('click', fetchMessages);
     document.getElementById('upload-button').addEventListener('click', uploadFile);
+    document.getElementById('paste-button').addEventListener('click', pasteFromClipboard);
 
     // 监听页面的可见性变化
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -35,6 +36,18 @@ window.onload = () => {
     // 绑定回车键操作
     bindEnterKey();
 };
+
+function pasteFromClipboard() {
+    navigator.clipboard.readText()
+    .then(text => {
+        const messageInput = document.getElementById('message-input');
+        messageInput.value = text;
+    })
+    .catch(error => {
+        console.error('粘贴内容时出错:', error);
+        alert('无法从剪贴板粘贴内容');
+    });
+}
 
 function uploadFile() {
     const fileInput = document.getElementById('file-input');
