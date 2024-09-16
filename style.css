@@ -8,15 +8,7 @@ body {
     user-select: none;
 }
 
-/* .message {
-    user-select: text;
-} */
-
 .timestamp {
-    user-select: none;
-}
-
-.container {
     user-select: none;
 }
 
