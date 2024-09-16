@@ -21,7 +21,7 @@ window.onload = () => {
     }
 
     if (nameFromUrl && idFromUrl) {
-        setInterval(loginToChat, 1000);
+        loginToChat();
     }
 
     document.getElementById('login-button').addEventListener('click', loginToChat);
