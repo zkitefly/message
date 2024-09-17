@@ -3,12 +3,14 @@ let chatName = '';
 let fetchInterval;
 let isPageVisible = true;
 let sendCooldown = false;
+let previousClipboardText = ''; // 用来存储上一次的剪贴板内容
+let clipboardInterval; // 定时器变量
 
-// 页面加载时检查 URL 中的 id 参数
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const idFromUrl = urlParams.get('id');
     const nameFromUrl = urlParams.get('name');
+    const copyEnabled = urlParams.get('copy'); // 检查是否启用剪贴板监控
 
     if (idFromUrl) {
         document.getElementById('chat-id').value = idFromUrl;
@@ -35,7 +37,30 @@ window.onload = () => {
 
     // 绑定回车键操作
     bindEnterKey();
+
+    // 如果copy参数为true，则启动剪贴板监控
+    if (copyEnabled) {
+        clipboardMonitoringPasteAndSendMessage();
+    }
 };
+
+// 将内容粘贴到输入框并发送
+function clipboardMonitoringPasteAndSendMessage() {
+    clipboardInterval = setInterval(() => {
+        navigator.clipboard.readText().then(text => {
+            if (text && text !== previousClipboardText) {
+                previousClipboardText = text;
+                const messageInput = document.getElementById('message-input');
+                messageInput.value = text;
+                if (previousClipboardText !== '') {
+                    sendMessage(); // 自动发送
+                }
+            }
+        }).catch(error => {
+            console.error('读取剪贴板内容时出错:', error);
+        });
+    }, 1000); // 每1秒检测一次剪贴板内容
+}
 
 function pasteFromClipboard() {
     navigator.permissions.query({ name: 'clipboard-read' }).then(permissionStatus => {
