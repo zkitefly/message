@@ -49,12 +49,12 @@ function clipboardMonitoringPasteAndSendMessage() {
     clipboardInterval = setInterval(() => {
         navigator.clipboard.readText().then(text => {
             if (text && text !== previousClipboardText) {
-                previousClipboardText = text;
                 const messageInput = document.getElementById('message-input');
                 messageInput.value = text;
                 if (previousClipboardText !== '') {
                     sendMessage(); // 自动发送
                 }
+                previousClipboardText = text;
             }
         }).catch(error => {
             console.error('读取剪贴板内容时出错:', error);
