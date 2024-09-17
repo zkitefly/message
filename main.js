@@ -113,10 +113,9 @@ function bindEnterKey() {
         }
     });
 
-    // 在消息输入框按下回车时，发送消息
+    // 在消息输入框按下Shift + Enter时，发送消息
     messageInput.addEventListener('keydown', event => {
-        // 如果按下 Shift + Enter，则插入换行
-        if (event.key === 'Enter' && !event.shiftKey) {
+        if (event.key === 'Enter' && event.shiftKey) {
             event.preventDefault(); // 防止默认行为
             sendMessage(); // 发送消息
         }
