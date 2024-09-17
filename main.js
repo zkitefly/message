@@ -115,9 +115,10 @@ function bindEnterKey() {
 
     // 在消息输入框按下回车时，发送消息
     messageInput.addEventListener('keydown', event => {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // 防止回车换行
-            sendMessage();
+        // 如果按下 Shift + Enter，则插入换行
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault(); // 防止默认行为
+            sendMessage(); // 发送消息
         }
     });
 }

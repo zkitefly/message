@@ -14,6 +14,13 @@ body {
     user-select: all;
 }
 
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 确保内容居中对齐 */
+    margin-bottom: 10px; /* 留出一些空间 */
+}
+
 .timestamp {
     -webkit-user-select: none;
     user-select: none;
@@ -71,6 +78,9 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    resize: vertical; /* 允许用户调整文本区域的大小 */
+    min-height: 50px;
+    margin-right: 10px; /* 给输入框和按钮之间留出一些间距 */
 }
 
 #send-button,
