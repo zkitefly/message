@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: #121212;
+    color: #e0e0e0;
     padding: 20px;
 }
 
@@ -29,10 +30,10 @@ body {
 #chat-container {
     max-width: 600px;
     margin: 0 auto;
-    background: white;
+    background: #1e1e1e;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 
 #login {
@@ -43,8 +44,14 @@ body {
     margin: 10px 0;
     padding: 10px;
     width: 80%;
-    border: 1px solid #ccc;
+    border: 1px solid #333;
     border-radius: 5px;
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+}
+
+#login input::placeholder {
+    color: #888;
 }
 
 #chat {
@@ -52,19 +59,20 @@ body {
 }
 
 #messages {
-    background-color: #eaeaea;
+    background-color: #2c2c2c;
     padding: 10px;
     height: 300px;
     overflow-y: scroll;
     border-radius: 5px;
     margin-bottom: 10px;
+    color: #e0e0e0;
 }
 
 .message {
     text-align: left;
     padding: 5px;
     margin: 5px 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #444;
 }
 
 .timestamp {
@@ -73,18 +81,34 @@ body {
     text-align: right;
 }
 
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
 #message-input {
     width: 70%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #333;
     border-radius: 5px;
-    resize: vertical; /* 允许用户调整文本区域的大小 */
+    resize: vertical;
     min-height: 50px;
-    margin-right: 10px; /* 给输入框和按钮之间留出一些间距 */
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    margin-right: 10px;
+}
+
+#message-input::placeholder {
+    color: #888;
 }
 
 #send-button,
-#login-button {
+#login-button,
+#upload-button,
+#paste-button,
+#fetch-now {
     padding: 10px;
     margin: 10px;
     background-color: #4CAF50;
@@ -95,6 +119,14 @@ body {
 }
 
 #send-button:hover,
-#login-button:hover {
+#login-button:hover,
+#upload-button:hover,
+#paste-button:hover,
+#fetch-now:hover {
     background-color: #45a049;
+}
+
+#file-input {
+    margin-top: 10px;
+    color: #e0e0e0;
 }
