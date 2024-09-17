@@ -248,14 +248,17 @@ function fetchMessages() {
                 data.forEach(msg => {
                     const messageElement = document.createElement('div');
                     messageElement.classList.add('message');
+
+                    // 转换消息内容中的换行符为 <br>
+                    const formattedMessage = msg.message.replace(/\n/g, '<br>');
+
                     messageElement.innerHTML = `
-                        <div class="container"><strong class="name">${msg.name}: </strong><span class="message">${msg.message}</span></div>
-                        <div class="timestamp">${formatTime(msg.time)}</div>
-                    `;
+                    <div class="container"><strong class="name">${msg.name}: </strong><span class="message">${formattedMessage}</span></div>
+                    <div class="timestamp">${formatTime(msg.time)}</div>
+                `;
                     messagesContainer.appendChild(messageElement);
                 });
             } else {
-                // 如果没有消息，显示一个占位符提示
                 messagesContainer.innerHTML = '<div class="no-messages">暂无消息</div>';
             }
 
