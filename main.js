@@ -115,23 +115,9 @@ function bindEnterKey() {
 
     // 在消息输入框按下回车时，发送消息
     messageInput.addEventListener('keydown', event => {
-        // 如果按下 Shift 键，不处理
-        if (event.shiftKey) {
-            return;
-        }
-
-        // 如果按下 Enter 键，则发送消息
-        if (event.key === 'Enter') {
-            event.preventDefault(); // 阻止默认行为（换行）
-            sendMessage(); // 发送消息
-        }
-    });
-
-    // 监听消息输入框的键盘抬起事件
-    messageInput.addEventListener('keyup', event => {
-        // 如果是长按 Enter 键，并且没有按下 Shift 键，则发送消息
+        // 如果按下 Shift + Enter，则插入换行
         if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault(); // 阻止默认行为（换行）
+            event.preventDefault(); // 防止默认行为
             sendMessage(); // 发送消息
         }
     });
